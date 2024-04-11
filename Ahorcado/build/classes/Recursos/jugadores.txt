@@ -1,0 +1,3 @@
+Antonio;3;10;30;
+Mercedes;0;0;0;
+Guille;0;0;0;
