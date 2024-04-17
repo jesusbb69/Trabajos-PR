@@ -10,6 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.io.BufferedWriter;
+import java.util.List;
 
 
 /**
@@ -42,7 +46,29 @@ public class Auxiliar {
     }
     
     
-    public static void guardarPersonas(Persona persona){
-        
+    public static void guardarPersonas(List<Persona> personas){
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String nombreArchivo = "personal_" + fechaHoraActual.format(formatter) + ".txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+            for (int i = 0; i < personas.size(); i++) {
+                Persona persona = personas.get(i);
+                String linea = persona.getNombre() + "," +
+                               persona.getApellido() + "," +
+                               persona.getEmail() + "," +
+                               persona.getGenero() + "," +
+                               persona.getNacimiento() + "," +
+                               persona.getPais();
+                if (i != personas.size() - 1) {
+                    linea += "\n"; 
+                }
+                writer.write(linea);
+            }
+            System.out.println("Personas guardadas en el archivo " + nombreArchivo);
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    
     }
 }

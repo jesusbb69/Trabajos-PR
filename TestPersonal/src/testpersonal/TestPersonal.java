@@ -4,20 +4,23 @@
  */
 package testpersonal;
 
+import java.util.List;
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import java.io.IOException;
 /**
  *
  * @author Jesús Ballesta
  */
-public class TestPersonal {
-
+public class TestPersonal {    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner teclado = new Scanner(System.in);
+        Personal personal = new Personal();
+        
         int opcion;
         boolean cerrado = false;
         do {
@@ -38,9 +41,7 @@ public class TestPersonal {
                         System.out.println("Se ha salido del programa");
                         break;
                     case 1:
-                        System.out.println("Introduce el nombre del pais:");
-                        teclado.nextLine();
-                        String pais = teclado.nextLine();
+                        
                         
                         
                         break;
@@ -78,5 +79,9 @@ public class TestPersonal {
         }
         
     }
+    
+   
+    
+    
 
 }
