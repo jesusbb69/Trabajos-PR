@@ -20,7 +20,13 @@ public class TestPersonal {
         // TODO code application logic here
         Scanner teclado = new Scanner(System.in);
         Personal personal = new Personal();
+        Auxiliar n = new Auxiliar();
         
+        
+        Persona persona1 = new Persona("Jesus", "Ballesta", "ballesta@gmail.com", "masc", "10/10/2005", "España");
+        Persona persona2 = new Persona("Jesus2", "Ballesta2", "prueba", "masc", "10/10/2005", "España");
+        personal.addPersona(persona1);
+        personal.addPersona(persona2);
         int opcion;
         boolean cerrado = false;
         do {
@@ -28,11 +34,13 @@ public class TestPersonal {
             System.out.println("1. Pedir el nombre de un país y mostrar los datos de todas las personas de ese país.");
             System.out.println("2. Borrar una persona, pidiendo por teclado el mail de esta.");
             System.out.println("3. Pedir día y mes y mostrar todas las personas que cumplen años ese día");
-            System.out.println("4. Mostrar la persona (o personas) más joven(es) de todas");
+            System.out.println("4. Mostrar la persona (o personas) más joven(es) de todas (Actual Muestra TOdo)");
+            System.out.println("5. Leer personas de otro fichero");
+            System.out.println("6. Guardar personas en un fichero csv");
             opcion = teclado.nextInt();
 
             try {
-                if (opcion > 4){
+                if (opcion > 9){
                     throw new NMDR(opcion);
                 }
                 switch (opcion) {
@@ -41,22 +49,30 @@ public class TestPersonal {
                         System.out.println("Se ha salido del programa");
                         break;
                     case 1:
-                        
-                        
-                        
+                        System.out.println("Introduce un pais");
+                        teclado.nextLine();
+                        String pais = teclado.nextLine();
+                        personal.personasPais(pais);
                         break;
                     case 2:
-
                         System.out.println("Introduce el email de la persona a borrar:");
                         teclado.nextLine();
                         String email = teclado.nextLine();
+                        personal.borrarPorEmail(email);
                         
                         break;
                     case 3:
-
+                        
                         break;
                     case 4:
+                        personal.mostrarTodo();
                         break;
+                        
+                    case 5:
+
+                        
+                    case 6:
+                        
 
                 }
             } catch (Exception NMDR) {

@@ -25,7 +25,7 @@ public class Personal {
     public void borrarPorEmail(String email){
         for (Persona persona1 : persona) {
             if (persona1.getEmail().equals(email)){
-                this.persona.remove(email);
+                this.persona.remove(persona1);
             }
                 
         }
@@ -52,6 +52,16 @@ public class Personal {
         for (Persona persona1 : persona) {
             if(persona1.getEmail().equals(email)){
                 this.persona.remove(persona1);
+            }
+        }
+    }
+    
+    public void mostrarTodo(){
+        if (persona.isEmpty()){
+            System.out.println("No hay personas");
+        }else{
+            for (Persona persona1 : persona) {
+                System.out.println(persona1.toString());
             }
         }
     }
