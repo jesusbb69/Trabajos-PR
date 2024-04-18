@@ -23,7 +23,6 @@ import java.util.List;
 public class Auxiliar {
     
     public static void leerPersonas(String path){
-        ArrayList<Persona> listaPersonas = new ArrayList<>();
         try {
             File f = new File(path);
             Scanner lector = new Scanner(f);
@@ -36,9 +35,11 @@ public class Auxiliar {
                 String genero = datosPersona[3];
                 String nacimiento = datosPersona[4];
                 String pais = datosPersona[5];               
-                listaPersonas.add(new Persona(nombre, apellidos, email, genero, nacimiento, pais));
+                Persona persona1 = new Persona(nombre, apellidos, email, genero, nacimiento, pais);
+                System.out.println(persona1.toString());
             }
             
+            lector.close();
         } catch (FileNotFoundException e) {
             System.out.println("eror" + e);
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class Auxiliar {
     public static void guardarPersonas(List<Persona> personas){
         LocalDateTime fechaHoraActual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-        String nombreArchivo = "personal_" + fechaHoraActual.format(formatter) + ".txt";
+        String nombreArchivo = "./src/Recursos/personal_" + fechaHoraActual.format(formatter) + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (int i = 0; i < personas.size(); i++) {

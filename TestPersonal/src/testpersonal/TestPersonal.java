@@ -4,6 +4,8 @@
  */
 package testpersonal;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -27,6 +29,10 @@ public class TestPersonal {
         Persona persona2 = new Persona("Jesus2", "Ballesta2", "prueba", "masc", "10/10/2005", "España");
         personal.addPersona(persona1);
         personal.addPersona(persona2);
+        
+        ArrayList<Persona> prueba = new ArrayList<>();
+        
+        
         int opcion;
         boolean cerrado = false;
         do {
@@ -69,9 +75,19 @@ public class TestPersonal {
                         break;
                         
                     case 5:
-
+                        System.out.println("Introduce la ruta donde se encuntra el fichero");
+                        teclado.nextLine();
+                        String ruta = teclado.nextLine();
+                        System.out.println("Ahora introduce el nombre del fichero");
+                        String fichero = teclado.nextLine();
+                        System.out.println("Se va a utilizar la siguiente ruta: " + ruta + fichero);
+                        String ficheroFinal = ruta + fichero;
+                        Auxiliar.leerPersonas(ficheroFinal);
                         
                     case 6:
+                        prueba.add(persona1);
+                        prueba.add(persona2);
+                        Auxiliar.guardarPersonas(prueba);
                         
 
                 }
