@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.eventoraton.RatonController">
+   <children>
+      <Text fx:id="raton" layoutX="200.0" layoutY="120.0" onMouseDragged="#setOnMouseDragged" strokeType="OUTSIDE" strokeWidth="0.0" text="Programar es divertido" textAlignment="CENTER" wrappingWidth="222.13671875" />
+   </children>
+</Pane>
