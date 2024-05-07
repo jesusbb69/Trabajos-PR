@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 /**
@@ -38,16 +38,56 @@ public class SecondaryController implements Initializable {
         // TODO
     }    
     
+    public void initPersona(Persona p){
+        textoNombre.setText(p.getNombre());
+        textoApellido.setText(p.getApellidos());
+    }
     @FXML
     private void botonSalvar(ActionEvent event) {
+        
+        cerrarVentana();
+    
     }
 
     @FXML
     private void botonCancelar(ActionEvent event) {
+        cerrarVentana(); 
+    }
+
+    private void cerrarVentana() {
+        Stage stage = (Stage) salvar.getScene().getWindow();
+        stage.close();
+    }
+    
+    
+    
+    
+    private boolean esModificacion;
+    
+    public void inicializarParaAgregar() {
+        esModificacion = false;
+        textoNombre.clear();
+        textoApellido.clear();
+        salvar.setVisible(true);
+        cancelar.setVisible(true);
+    }
+    
+    public void inicializarParaModificar(String nombre, String apellido) {
+        esModificacion = true;
+        textoNombre.setText(nombre);
+        textoApellido.setText(apellido);
+        salvar.setVisible(true);
+        cancelar.setVisible(true);
+    }
+    
+    public void inicializarParaVerDatos(String nombre, String apellido) {
+        textoNombre.setText(nombre);
+        textoApellido.setText(apellido);
+        salvar.setVisible(false);
+        cancelar.setVisible(false);
     }
 
     @FXML
     private void botonCerrar(ActionEvent event) {
     }
-
 }

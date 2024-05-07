@@ -11,7 +11,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="59.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="verDatos" mnemonicParsing="false" text="Ver Datos" textAlignment="CENTER" />
+            <Button fx:id="verDatos" mnemonicParsing="false" onAction="#verDatoBoton" text="Ver Datos" textAlignment="CENTER" />
          </children>
       </HBox>
    </top>
@@ -24,15 +24,15 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Añadir">
+            <Button fx:id="añadir" mnemonicParsing="false" onAction="#añadirBoton" text="Añadir">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></Button>
-            <Button mnemonicParsing="false" text="Borrar">
+            <Button fx:id="borrar" mnemonicParsing="false" onAction="#borrarBoton" text="Borrar">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></Button>
-            <Button mnemonicParsing="false" text="Modificar">
+            <Button fx:id="modificar" mnemonicParsing="false" onAction="#modificarBoton" text="Modificar">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></Button>

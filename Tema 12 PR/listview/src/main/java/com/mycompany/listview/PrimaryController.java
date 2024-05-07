@@ -16,8 +16,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ListCell;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,6 +38,12 @@ public class PrimaryController implements Initializable {
     private Button verDatos;
     @FXML
     private ListView<Persona> lista;
+    @FXML
+    private Button añadir;
+    @FXML
+    private Button borrar;
+    @FXML
+    private Button modificar;
     /**
      * Initializes the controller class.
      */
@@ -54,40 +67,43 @@ public class PrimaryController implements Initializable {
         lista.setCellFactory(c-> new PersonListCell());
         
     }    
-    
-    public class Persona{
-        private final StringProperty Nombre = new SimpleStringProperty();
-        private final StringProperty Apellidos = new SimpleStringProperty();
 
-        public Persona(String nombre, String apellidos) {
-            Nombre.setValue(nombre);
-            Apellidos.setValue(apellidos);
-        }
+    @FXML
+    private void verDatoBoton(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader (getClass().getClassLoader().getResource("com/mycompany/listview/secondary.fxml"));
+        Parent root = miCargador.load();
+        SecondaryController controladorPersona = miCargador.<SecondaryController>getController();
         
-        public final StringProperty NombreProperty(){
-            return this.Nombre;
+        Persona persona = lista.getSelectionModel().getSelectedItem();
+        if (persona == null){
+            return;
         }
-        
-        public final void setNombre(final java.lang.String Nombre){
-            this.NombreProperty().set(Nombre);
-        }
-        
-        public final java.lang.String getNombre() {
-            return this.NombreProperty().get();
-        }
-        
-        public final StringProperty ApellidosProperty(){
-            return this.Apellidos;
-        }
-        
-        public final java.lang.String getApellidos() {
-            return this.ApellidosProperty().get();
-        }
-        
-        public final void setApellidos(final java.lang.String Apellidos){
-            this.ApellidosProperty().set(Apellidos);
-        }
+        controladorPersona.initPersona(persona);
+        Scene scene = new Scene(root, 500, 300);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Ver Datos Persona");
+        //stage.show();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
+
+    @FXML
+    private void añadirBoton(ActionEvent event) {
+       
+    }
+
+    @FXML
+    private void borrarBoton(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void modificarBoton(ActionEvent event) {
+        
+    }
+    
+    
 
     class PersonListCell extends ListCell<Persona> {
         @Override
