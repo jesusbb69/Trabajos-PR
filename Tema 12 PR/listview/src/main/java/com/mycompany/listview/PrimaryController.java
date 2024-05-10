@@ -33,7 +33,6 @@ import javafx.stage.Stage;
  */
 public class PrimaryController implements Initializable {
 
-
     @FXML
     private Button verDatos;
     @FXML
@@ -44,41 +43,47 @@ public class PrimaryController implements Initializable {
     private Button borrar;
     @FXML
     private Button modificar;
+
+    ArrayList<Persona> datos = new ArrayList<>();
+    ObservableList<Persona> datosObservableList;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        ArrayList<Persona> datos = new ArrayList<>();
-        datos.add(new Persona("Garcia", "Lucia"));
-        datos.add(new Persona("Soprano", "Lucas"));
-        datos.add(new Persona("Vazquez", "Alvaro"));
-        datos.add(new Persona("tilla", "Aitor"));
-        datos.add(new Persona("Gomez", "Margarita"));
-        datos.add(new Persona("Ballesta", "Andrea"));
-        datos.add(new Persona("Moreno", "Jesus"));
-        
-        ObservableList<Persona> datosObservableList;
+
+        datos.add(new Persona("Lucia", "Garcia"));
+        datos.add(new Persona("Lucas", "Soprano"));
+        datos.add(new Persona("Alvaro", "Vazquez"));
+        datos.add(new Persona("Aitor", "tilla"));
+        datos.add(new Persona("Margarita", "Gomez"));
+        datos.add(new Persona("Andrea", "Ballesta"));
+        datos.add(new Persona("Jesus", "Moreno"));
+
         datosObservableList = FXCollections.observableList(datos);
-        
+
         lista.setItems(datosObservableList);
-        lista.setCellFactory(c-> new PersonListCell());
-        
-    }    
+        lista.setCellFactory(c -> new PersonListCell());
+
+    }
 
     @FXML
     private void verDatoBoton(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader (getClass().getClassLoader().getResource("com/mycompany/listview/secondary.fxml"));
+
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/listview/secondary.fxml"));
         Parent root = miCargador.load();
         SecondaryController controladorPersona = miCargador.<SecondaryController>getController();
-        
+
         Persona persona = lista.getSelectionModel().getSelectedItem();
-        if (persona == null){
+        if (persona == null) {
             return;
         }
-        controladorPersona.initPersona(persona);
+        controladorPersona.initPersona(persona);        
+        controladorPersona.inicializarParaVerDatos(persona);
+        controladorPersona.textoNombre.setEditable(false);
+        controladorPersona.textoApellido.setEditable(false);
         Scene scene = new Scene(root, 500, 300);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -89,38 +94,76 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void añadirBoton(ActionEvent event) {
-       
+    private void añadirBoton(ActionEvent event) throws IOException {
+        Button clickButton = (Button) event.getSource();
+        System.out.println(clickButton.getId());
+
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/listview/secondary.fxml"));
+
+        Parent root = miCargador.load();
+
+        SecondaryController controladorPersona = miCargador.<SecondaryController>getController();
+                        Scene scene = new Scene(root, 500, 300);
+        Stage stage = new Stage();
+        //System.out.println("primero");
+        Persona persona = new Persona("", "");
+        if(clickButton.getId().equals("añadir")){
+            stage.setTitle("Añadir persona");
+            controladorPersona.inicializarParaAgregar();
+        }else{
+            persona = lista.getSelectionModel().getSelectedItem();
+            if (persona == null){
+                return;
+            }
+            stage.setTitle("Modificar persona");
+            controladorPersona.inicializarParaModificar(persona);
+        }
+        //controladorPersona.initPersona(persona);
+        
+        
+
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+        if (!controladorPersona.getCancelar()) {
+            if ((!controladorPersona.getPersona().getNombre().isEmpty())
+                    && (controladorPersona.getPersona().getNombre().trim().length() != 0)
+                    && (!controladorPersona.getPersona().getNombre().isEmpty())
+                    && (controladorPersona.getPersona().getApellidos().trim().length() != 0)) {
+                if (clickButton.getId().equals("añadir")) {
+                    datosObservableList.add(controladorPersona.getPersona());
+
+                } else {
+                    int indice = datos.indexOf(persona);
+                    Persona p = controladorPersona.getPersona();
+                    datos.set(indice, p);
+                }
+                lista.refresh();
+            }
+        }
     }
 
     @FXML
     private void borrarBoton(ActionEvent event) {
-        
+        Persona persona = lista.getSelectionModel().getSelectedItem();
+        if (persona == null){
+            return;
+        }
+        datosObservableList.remove(persona);
     }
-
-    @FXML
-    private void modificarBoton(ActionEvent event) {
-        
-    }
-    
-    
 
     class PersonListCell extends ListCell<Persona> {
+
         @Override
-        protected void updateItem(Persona item, boolean empty){
+        protected void updateItem(Persona item, boolean empty) {
             super.updateItem(item, empty);
-            if (item == null || empty){
+            if (item == null || empty) {
                 setText(null);
-            }else{
+            } else {
                 setText(item.getApellidos() + ", " + item.getNombre());
             }
         }
     }
-    
-    
-    
-    
-} 
 
-
-
+}

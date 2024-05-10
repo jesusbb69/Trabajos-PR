@@ -32,7 +32,7 @@
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></Button>
-            <Button fx:id="modificar" mnemonicParsing="false" onAction="#modificarBoton" text="Modificar">
+            <Button fx:id="modificar" mnemonicParsing="false" onAction="#añadirBoton" text="Modificar">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin></Button>

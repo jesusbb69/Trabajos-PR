@@ -21,15 +21,19 @@ public class SecondaryController implements Initializable {
 
 
     @FXML
-    private TextField textoNombre;
+    public TextField textoNombre;
     @FXML
-    private TextField textoApellido;
+    public TextField textoApellido;
     @FXML
     private Button salvar;
     @FXML
     private Button cancelar;
     @FXML
     private Button cerrar;
+    
+    boolean cancela = true;
+    
+    Persona personaM;
     /**
      * Initializes the controller class.
      */
@@ -45,6 +49,8 @@ public class SecondaryController implements Initializable {
     @FXML
     private void botonSalvar(ActionEvent event) {
         
+        personaM = new Persona(textoNombre.getText(), textoApellido.getText());
+        cancela = false;
         cerrarVentana();
     
     }
@@ -70,24 +76,35 @@ public class SecondaryController implements Initializable {
         textoApellido.clear();
         salvar.setVisible(true);
         cancelar.setVisible(true);
+        cerrar.setVisible(false);
     }
     
-    public void inicializarParaModificar(String nombre, String apellido) {
+    public void inicializarParaModificar(Persona p) {
         esModificacion = true;
-        textoNombre.setText(nombre);
-        textoApellido.setText(apellido);
+        textoNombre.setText(p.getNombre());
+        textoApellido.setText(p.getApellidos());
         salvar.setVisible(true);
-        cancelar.setVisible(true);
+        cancelar.setVisible(true);   
+        cerrar.setVisible(false);
     }
     
-    public void inicializarParaVerDatos(String nombre, String apellido) {
-        textoNombre.setText(nombre);
-        textoApellido.setText(apellido);
+    public void inicializarParaVerDatos(Persona p) {
+        textoNombre.setText(p.getNombre());
+        textoApellido.setText(p.getApellidos());
         salvar.setVisible(false);
         cancelar.setVisible(false);
     }
 
     @FXML
     private void botonCerrar(ActionEvent event) {
+        cerrarVentana();
+    }
+    
+    public boolean getCancelar(){
+        return cancela;
+    }
+    
+    public Persona getPersona(){
+        return personaM;
     }
 }
