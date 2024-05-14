@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.cuadradosrecursivos.PrimaryController">
@@ -24,6 +23,5 @@
       </CheckBox>
       <Button fx:id="aplicar" layoutX="310.0" layoutY="102.0" mnemonicParsing="false" text="Aplicar" />
       <Slider fx:id="slider" layoutX="81.0" layoutY="172.0" majorTickUnit="1" max="7.0" min="1.0" prefHeight="14.0" prefWidth="229.0" />
-      <Rectangle fx:id="rectangulo" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="104.0" layoutX="148.0" layoutY="243.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
    </children>
 </AnchorPane>

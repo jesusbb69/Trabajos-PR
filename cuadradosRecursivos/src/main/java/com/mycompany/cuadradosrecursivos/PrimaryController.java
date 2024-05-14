@@ -52,45 +52,38 @@ public class PrimaryController implements Initializable {
 
     }
 
-   private void dibujarFigura() {
+    private void dibujarFigura() {
         int nivel = Integer.parseInt(texto.getText());
         boolean yes = invertir.isSelected();
-        double lado = Math.min(rectangulo.getWidth(), rectangulo.getHeight()) / 2;   
+        double lado = Math.min(rectangulo.getWidth(), rectangulo.getHeight()) / 2;
         dibujarCuadrado(rectangulo, lado, nivel);
     }
 
-   private void dibujarCuadrado(Rectangle rect, double size, int nivel) {
-    if (nivel <= 0) return;
+    private void nCuadrado(int n, double centroX, double centroY, double lado) {
 
-    Color color = invertir.isSelected() ? Color.GREEN : Color.BLACK;
-    double newSize = size / 2;
+        Rectangle square = new Rectangle(centroX, centroY, lado, lado);
+        //square.setFill();
+        //square.setStroke(color)
+        pane.getChildren().add(square)
+        if (n > 1) {
+            nCuadrado(n - 1, centroX - lado / 4, centroY - lado / 4, lado / 2);
+            nCuadrado(n - 1, centroX - lado / 4, (centroY + lado) - lado / 4, lado / 2);
+            nCuadrado(n - 1, (centroX + lado) - lado / 4, centroY - lado / 4, lado / 2);
+            nCuadrado(n - 1, (centroX + lado) - lado / 4, (centroY + lado) - lado / 4, lado / 2);
+        }
+    }
 
-    
-    Rectangle r1 = new Rectangle(rect.getX(), rect.getY(), newSize, newSize);
-    r1.setFill(color);
-    rect.getParent().getChildrenUnmodifiable().add(r1);
-
-    Rectangle r2 = new Rectangle(rect.getX() + newSize, rect.getY(), newSize, newSize);
-    r2.setFill(color);
-    rect.getParent().getChildrenUnmodifiable().add(r2);
-
-    Rectangle r3 = new Rectangle(rect.getX(), rect.getY() + newSize, newSize, newSize);
-    r3.setFill(color);
-    rect.getParent().getChildrenUnmodifiable().add(r3);
-
-    Rectangle r4 = new Rectangle(rect.getX() + newSize, rect.getY() + newSize, newSize, newSize);
-    r4.setFill(color);
-    rect.getParent().getChildrenUnmodifiable().add(r4);
-
-    
-    dibujarCuadrado(r1, newSize, nivel - 1);
-    dibujarCuadrado(r2, newSize, nivel - 1);
-    dibujarCuadrado(r3, newSize, nivel - 1);
-    dibujarCuadrado(r4, newSize, nivel - 1);
-}
-
-
-
-
+    private void rCuadradoInverso(int n, double centroX, double centroY, double lado) {
+        if (n > 1) {
+            rCuadradoInverso(n - 1, centroX - lado / 4, centroY - lado / 4, lado / 2);
+            rCuadradoInverso(n - 1, centroX - lado / 4, (centroY + lado) - lado / 4, lado / 2);
+            rCuadradoInverso(n - 1, (centroX + lado) - lado / 4, centroY - lado / 4, lado / 2);
+            rCuadradoInverso(n - 1, (centroX + lado) - lado / 4, (centroY + lado) - lado / 4, lado / 2);
+        }
+        Rectangle square = new Rectangle(centroX, centroY, lado, lado
+        square.setFill(color)
+        square.setStroke(color)
+        pane.getChildren().add(square)
+    }
 
 }
