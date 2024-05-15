@@ -73,8 +73,8 @@ public class Persona {
         return this.pathImagen;
     }
 
-    public StringProperty getPathImagen() {
-        return pathImagen;
+    public String getPathImagen() {
+        return this.pathImagen.get();
     }
 
     public void setPathImagen(String pathImagen) {

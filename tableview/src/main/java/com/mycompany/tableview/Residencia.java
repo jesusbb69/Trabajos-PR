@@ -9,8 +9,8 @@ package com.mycompany.tableview;
  * @author jesbalber
  */
 public class Residencia {
-    private String ciudad;
-    private String provincia;
+    public String ciudad;
+    public String provincia;
 
     public Residencia(String ciudad, String provincia) {
         this.ciudad = ciudad;
@@ -37,6 +37,8 @@ public class Residencia {
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
+    
+    
     
     
     

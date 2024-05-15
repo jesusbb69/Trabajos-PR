@@ -12,6 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.binding.ObjectExpression;
+import javafx.scene.text.Text;
+
 /**
  * FXML Controller class
  *
@@ -23,11 +29,13 @@ public class SecondaryController implements Initializable {
     @FXML
     public TextField nombreTexto;
     @FXML
-    public TextField apellidosTexto;
-    @FXML
-    public TextField residenciaTexto;
+    public TextField apellidosTexto;   
     @FXML
     public TextField imagenTexto;
+    @FXML
+    private TextField ciudadTexto;
+    @FXML
+    private TextField provinciaTexto;
     @FXML
     private Button salvar;
     @FXML
@@ -37,6 +45,14 @@ public class SecondaryController implements Initializable {
     
     Persona personaM;
     boolean cancela = true;
+    @FXML
+    private Text Ciudad;
+    
+    
+    
+    
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -46,13 +62,18 @@ public class SecondaryController implements Initializable {
     }    
     
     public void initPersona(Persona p){
+        
+        ObjectProperty<Residencia> residencia;
         nombreTexto.setText(p.getNombre());
         apellidosTexto.setText(p.getApellidos());
+        ciudadTexto.setText(p.getResidencia().get().getCiudad());
+        provinciaTexto.setText(p.getResidencia().get().getProvincia());
+        imagenTexto.setText(p.getPathImagen());
     }
     
     @FXML
-    private void botonSalvar(ActionEvent event) {        
-        cerrarVentana();
+    private void botonSalvar(ActionEvent event) {      
+        
     }
 
     @FXML

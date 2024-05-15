@@ -58,6 +58,7 @@ public class PrimaryController implements Initializable {
     private TableColumn<Persona, String> imagenColumna;
     
     private ObservableList<Persona> misPersonas;
+    ArrayList<Persona> datos = new ArrayList<>();
    
     /**
      * Initializes the controller class.
@@ -120,21 +121,22 @@ public class PrimaryController implements Initializable {
     
     @FXML
     private void verDatosBoton(ActionEvent event) throws IOException  {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/listview/secondary.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/tableview/secondary.fxml"));
         Parent root = miCargador.load();
         SecondaryController controladorPersona = miCargador.<SecondaryController>getController();
 
         Persona persona = vistaTabla.getSelectionModel().getSelectedItem();
+        
         if (persona == null) {
             return;
         }
+              
         controladorPersona.initPersona(persona);        
         controladorPersona.inicializarParaVerDatos(persona);
         controladorPersona.nombreTexto.setEditable(false);
-        controladorPersona.apellidosTexto.setEditable(false);
-        controladorPersona.residenciaTexto.setEditable(false);
+        controladorPersona.apellidosTexto.setEditable(false);        
         controladorPersona.imagenTexto.setEditable(false);
-        Scene scene = new Scene(root, 500, 300);
+        Scene scene = new Scene(root, 500, 500);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Ver Datos Persona");
@@ -144,7 +146,54 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void añadirDatosBoton(ActionEvent event) {
+    private void añadirDatosBoton(ActionEvent event) throws IOException {
+        Button clickButton = (Button) event.getSource();
+        System.out.println(clickButton.getId());
+
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/tableview/secondary.fxml"));
+
+        Parent root = miCargador.load();
+
+        SecondaryController controladorPersona = miCargador.<SecondaryController>getController();
+                        Scene scene = new Scene(root, 500, 300);
+        Stage stage = new Stage();
+        //System.out.println("primero");
+        Persona persona = new Persona("", "", null, "");
+        if(clickButton.getId().equals("añadir")){
+            stage.setTitle("Añadir persona");
+            controladorPersona.inicializarParaAgregar();
+        }else{
+            persona = vistaTabla.getSelectionModel().getSelectedItem();
+            if (persona == null){
+                return;
+            }
+            stage.setTitle("Modificar persona");
+            controladorPersona.inicializarParaModificar(persona);
+        }
+        //controladorPersona.initPersona(persona);
+        
+        
+
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+        if (!controladorPersona.getCancelar()) {
+            if ((!controladorPersona.getPersona().getNombre().isEmpty())
+                    && (controladorPersona.getPersona().getNombre().trim().length() != 0)
+                    && (!controladorPersona.getPersona().getNombre().isEmpty())
+                    && (controladorPersona.getPersona().getApellidos().trim().length() != 0)) {
+                if (clickButton.getId().equals("añadir")) {
+                    misPersonas.add(controladorPersona.getPersona());
+
+                } else {
+                    int indice = datos.indexOf(persona);
+                    Persona p = controladorPersona.getPersona();
+                    datos.set(indice, p);
+                }
+                vistaTabla.refresh();
+            }
+        }
     }
 
     @FXML
