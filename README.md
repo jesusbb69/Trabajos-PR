@@ -1,4 +1,5 @@
 # Falkens Maze editor
+## Jesus Ballesta Bernabe 1ºDAM
 
 ## Descripcion
 Este proyecto es un editor de laberintos el cual permite crear, editar, guardar y cargar laberintos personalizados.
