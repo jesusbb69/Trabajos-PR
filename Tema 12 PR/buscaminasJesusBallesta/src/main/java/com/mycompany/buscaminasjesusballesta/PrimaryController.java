@@ -13,10 +13,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
 /**
  * FXML Controller class
  *
@@ -42,7 +44,18 @@ public class PrimaryController implements Initializable {
     }    
     
     @FXML
-    private void accederJugar(ActionEvent event) {
+    private void accederJugar(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/buscaminas.fxml"));
+        Parent root = miCargador.load();
+        BuscaminasController buscaminas = miCargador.<BuscaminasController>getController();
+        
+        Scene scene = new Scene(root, 1200, 900);
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("Buscaminas");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
         
     }
 
@@ -64,6 +77,8 @@ public class PrimaryController implements Initializable {
         stage.setTitle("Jugadores Buscaminas");
         //stage.show();
         stage.initModality(Modality.APPLICATION_MODAL);
+        //tablaPersonas.btVolver1.setVisible(false);
+        //tablaPersonas.btSiguiente1.setVisible(false);
         stage.showAndWait();
     }
 

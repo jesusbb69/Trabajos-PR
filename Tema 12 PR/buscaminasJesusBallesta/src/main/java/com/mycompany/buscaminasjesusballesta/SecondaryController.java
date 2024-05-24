@@ -32,23 +32,24 @@ import javafx.stage.Stage;
  */
 public class SecondaryController implements Initializable {
 
-    @FXML
-    private TableView<Persona> tabla;
+    public TableView<Persona> tabla;
     @FXML
     private TableColumn<Persona, String> nombre;
     @FXML
     private TableColumn<Persona, String> apellidos;
     @FXML
-    private Button btVerDatos;
+    public Button btVerDatos;
     @FXML
-    private Button btAñadir;
+    public Button btAñadir;
     @FXML
-    private Button btModificar;
+    public Button btModificar;
     @FXML
-    private Button btBorrar;
+    public Button btBorrar;
 
     ArrayList<Persona> misDatos = new ArrayList<>();
     ObservableList<Persona> datosObservableList;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -151,5 +152,7 @@ public class SecondaryController implements Initializable {
         }
         datosObservableList.remove(persona);
     }
+
+   
 
 }
