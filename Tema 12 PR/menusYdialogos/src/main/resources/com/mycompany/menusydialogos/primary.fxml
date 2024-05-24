@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.menusydialogos.PrimaryController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem fx:id="cerrar" mnemonicParsing="false" onAction="#cerrar" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Lanzar">
+               <items>
+                  <MenuItem fx:id="mAmazon" mnemonicParsing="false" onAction="#comprarAmazon" text="Amazon">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="mBlogguer" mnemonicParsing="false" onAction="#visitarBlogguer" text="Blogguer">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="mEbay" mnemonicParsing="false" onAction="#comprarEbay" text="Ebay">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="mFacebook" mnemonicParsing="false" onAction="#visitarFacebook" text="Facebook">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="mGoogle" mnemonicParsing="false" onAction="#visitarGoogle" text="Goggle+">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+               </items></Menu>
+          <Menu mnemonicParsing="false" text="Opciones">
+            <items>
+                  <Menu mnemonicParsing="false" text="Comprar en">
+                     <items>
+                        <RadioMenuItem fx:id="rdAmazon" mnemonicParsing="false" text="Amazon">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="comprarEn" />
+                           </toggleGroup></RadioMenuItem>
+                        <RadioMenuItem fx:id="rdEbay" mnemonicParsing="false" text="Ebay" toggleGroup="$comprarEn" />
+                     </items>
+                  </Menu>
+            </items>
+          </Menu>
+        </menus>
+         <BorderPane.margin>
+            <Insets bottom="30.0" />
+         </BorderPane.margin>
+      </MenuBar>
+   </top>
+   <left>
+      <ToolBar prefHeight="50.0" prefWidth="312.0" BorderPane.alignment="CENTER">
+        <items>
+            <Button fx:id="btAmazon" mnemonicParsing="false" onAction="#comprarAmazon" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@amazon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+          <Button fx:id="btBlogguer" mnemonicParsing="false" onAction="#visitarBlogguer" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@blogguer.jpeg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btEbay" mnemonicParsing="false" onAction="#comprarEbay" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ebay.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btFacebook" mnemonicParsing="false" onAction="#visitarFacebook" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@facebook.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btGoogle" mnemonicParsing="false" onAction="#visitarGoogle" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@google.jpeg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+        </items>
+         <BorderPane.margin>
+            <Insets bottom="340.0" />
+         </BorderPane.margin>
+      </ToolBar>
+   </left>
+   <bottom>
+      <Label fx:id="estado" prefHeight="18.0" prefWidth="631.0" text="Barra de Estado" visible="false" BorderPane.alignment="TOP_LEFT" />
+   </bottom>
+</BorderPane>
