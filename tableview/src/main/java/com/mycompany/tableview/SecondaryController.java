@@ -4,6 +4,7 @@
  */
 package com.mycompany.tableview;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.binding.ObjectExpression;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
@@ -33,9 +36,9 @@ public class SecondaryController implements Initializable {
     @FXML
     public TextField imagenTexto;
     @FXML
-    private TextField ciudadTexto;
+    public TextField ciudadTexto;
     @FXML
-    private TextField provinciaTexto;
+    public TextField provinciaTexto;
     @FXML
     private Button salvar;
     @FXML
@@ -44,9 +47,12 @@ public class SecondaryController implements Initializable {
     private Button cancelar;
     
     Persona personaM;
+    Residencia residenciaM;
     boolean cancela = true;
     @FXML
     private Text Ciudad;
+    @FXML
+    private ImageView imagenView;
     
     
     
@@ -73,7 +79,9 @@ public class SecondaryController implements Initializable {
     
     @FXML
     private void botonSalvar(ActionEvent event) {      
-        
+        personaM = new Persona(nombreTexto.getText(), apellidosTexto.getText(),new Residencia(ciudadTexto.getText(), provinciaTexto.getText()),imagenTexto.getText());
+        cancela = false;
+        cerrarVentana();
     }
 
     @FXML
@@ -110,7 +118,11 @@ public class SecondaryController implements Initializable {
     
     public void inicializarParaModificar(Persona p) {
         esModificacion = true;
-        
+        nombreTexto.setText(p.getNombre());
+        apellidosTexto.setText(p.getApellidos());
+        ciudadTexto.setText(p.getResidencia().get().getCiudad());
+        provinciaTexto.setText(p.getResidencia().get().getProvincia());
+        imagenTexto.setText(p.getPathImagen());
         salvar.setVisible(true);
         cancelar.setVisible(true);   
         cerrar.setVisible(false);
@@ -124,6 +136,17 @@ public class SecondaryController implements Initializable {
         salvar.setVisible(false);
         cancelar.setVisible(false);
     }
+    
+    
+    public void configurarImagen(String rutaImagen) {
+    if (rutaImagen != null && !rutaImagen.isEmpty()) {
+        Image image = new Image(new File(rutaImagen).toURI().toString());
+        imagenView.setImage(image);
+    } else {
+        // Si la ruta de la imagen es nula o vacía, puedes establecer una imagen predeterminada o dejarla en blanco según tu preferencia.
+        imagenView.setImage(null); // Esto deja la imagen en blanco
+    }
+}
     
 
 }

@@ -1,8 +1,6 @@
-com/mycompany/tableview/App.class
-com/mycompany/tableview/SecondaryController.class
+com\mycompany\tableview\Persona.class
 module-info.class
-com/mycompany/tableview/PrimaryController$2.class
-com/mycompany/tableview/PrimaryController.class
-com/mycompany/tableview/PrimaryController$1.class
-com/mycompany/tableview/Residencia.class
-com/mycompany/tableview/Persona.class
+com\mycompany\tableview\SecondaryController.class
+com\mycompany\tableview\App.class
+com\mycompany\tableview\PrimaryController$3.class
+com\mycompany\tableview\Residencia.class
