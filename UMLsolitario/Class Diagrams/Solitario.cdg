@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Solitario">
+  <ClassDiagramComponents>
+    <Class name="Juego" package="iesBallestaBernabe" visibility="public" xPosition="148.0" yPosition="55.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="empezarPartida" returnType="void" visibility="public"/>
+        <Method name="acabarPartida" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Carta" package="iesBallestaBernabe" visibility="public" xPosition="758.0" yPosition="565.0">
+      <Fields>
+        <Field name="esVisible" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="darVuelta" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Baraja" package="iesBallestaBernabe" visibility="public" xPosition="574.0" yPosition="285.0">
+      <Fields>
+        <Field name="carta" type="ArrayList&lt;Carta&gt;Monton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="crearBaraja" returnType="void" visibility="public"/>
+        <Method name="barajar" returnType="void" visibility="public"/>
+        <Method name="repartir" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Monton" package="iesBallestaBernabe" visibility="public" isAbstract="true" xPosition="137.0" yPosition="586.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="anadirCarta" returnType="void" visibility="public"/>
+        <Method name="quitarCarta" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="MontonGanar" package="iesBallestaBernabe" visibility="public" xPosition="355.0" yPosition="333.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="moverCarta" returnType="void" visibility="public"/>
+        <Method name="agregarCarta" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="MontonRobar" package="iesBallestaBernabe" visibility="public" xPosition="5.0" yPosition="333.0">
+      <Fields>
+        <Field name="destaparCarta" type="Object" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="MontonJugar" package="iesBallestaBernabe" visibility="public" xPosition="197.0" yPosition="285.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="moverCarta" returnType="void" visibility="public"/>
+        <Method name="agregarCarta" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="Palo" package="iesBallestaBernabe" visibility="public" xPosition="678.0" yPosition="10.0">
+      <Literals>
+        <Literal name="PICAS"/>
+        <Literal name="CORAZONES"/>
+        <Literal name="TREBOLES"/>
+        <Literal name="DIAMANTES"/>
+      </Literals>
+    </Enum>
+    <Enum name="Numero" package="iesBallestaBernabe" visibility="public" xPosition="1005.0" yPosition="93.0">
+      <Literals>
+        <Literal name="UNO"/>
+        <Literal name="DOS"/>
+        <Literal name="TRES"/>
+        <Literal name="CUATRO"/>
+        <Literal name="CINCO"/>
+        <Literal name="SEIS"/>
+        <Literal name="SIETE"/>
+        <Literal name="OCHO"/>
+        <Literal name="NUEVE"/>
+        <Literal name="SOTA"/>
+        <Literal name="CABALLO"/>
+        <Literal name="REY"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tiene" source="iesBallestaBernabe.Juego" target="iesBallestaBernabe.MontonJugar" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene" source="iesBallestaBernabe.Juego" target="iesBallestaBernabe.MontonGanar" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="x" source="iesBallestaBernabe.Baraja" target="iesBallestaBernabe.Carta" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="x" source="iesBallestaBernabe.Baraja" target="iesBallestaBernabe.Monton" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="iesBallestaBernabe.MontonGanar" target="iesBallestaBernabe.Monton"/>
+    <IsRelation name="is" source="iesBallestaBernabe.MontonRobar" target="iesBallestaBernabe.Monton"/>
+    <HasRelation name="valor" source="iesBallestaBernabe.Carta" target="iesBallestaBernabe.Numero" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="iesBallestaBernabe.Juego" target="iesBallestaBernabe.MontonRobar" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="iesBallestaBernabe.MontonJugar" target="iesBallestaBernabe.Monton"/>
+    <HasRelation name="palo" source="iesBallestaBernabe.Carta" target="iesBallestaBernabe.Palo" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
