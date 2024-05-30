@@ -22,17 +22,20 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Juego">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem fx:id="mSalir" mnemonicParsing="false" onAction="#menuSalir" text="Salir" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Configuracion" />
-                <Menu mnemonicParsing="false" text="Ayuda" />
+                <Menu mnemonicParsing="false" text="Ayuda">
+                     <items>
+                        <MenuItem fx:id="mInformacion" mnemonicParsing="false" onAction="#menuAyuda" text="Informacion" />
+                     </items></Menu>
               </menus>
             </MenuBar>
             <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="283.0">
               <items>
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0">
+                  <Button fx:id="pausa" mnemonicParsing="false" onAction="#botonPausa" prefHeight="0.0" prefWidth="0.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -40,7 +43,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="31.0">
+                  <Button fx:id="records" mnemonicParsing="false" onAction="#botonRecords" prefHeight="26.0" prefWidth="31.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -48,7 +51,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0">
+                  <Button fx:id="ayuda" mnemonicParsing="false" onAction="#botonAyuda" prefHeight="26.0" prefWidth="33.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -56,7 +59,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0">
+                  <Button fx:id="salir" mnemonicParsing="false" onAction="#botonSalir" prefHeight="26.0" prefWidth="33.0">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -72,12 +75,12 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="BOTTOM_RIGHT">
          <children>
-            <Label prefHeight="28.0" prefWidth="171.0" text="Minas: ">
+            <Label fx:id="numeroMinas" prefHeight="28.0" prefWidth="171.0" text="Minas: ">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label prefHeight="28.0" prefWidth="165.0" text="Tiempo:">
+            <Label fx:id="tiempo" prefHeight="28.0" prefWidth="165.0" text="Tiempo:">
                <font>
                   <Font size="19.0" />
                </font>
