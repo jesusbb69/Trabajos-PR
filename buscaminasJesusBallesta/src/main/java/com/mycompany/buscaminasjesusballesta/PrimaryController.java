@@ -45,15 +45,15 @@ public class PrimaryController implements Initializable {
     
     @FXML
     private void accederJugar(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/buscaminas.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/seleccionarDificultad.fxml"));
         Parent root = miCargador.load();
-        BuscaminasController buscaminas = miCargador.<BuscaminasController>getController();
+        SeleccionarDificultadController buscaminas = miCargador.<SeleccionarDificultadController>getController();
         
-        Scene scene = new Scene(root, 1200, 900);
+        Scene scene = new Scene(root, 620, 400);
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setScene(scene);
-        stage.setTitle("Buscaminas");
+        stage.setTitle("Seleccionar Dificultad");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         

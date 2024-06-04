@@ -29,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -93,52 +94,12 @@ public class BuscaminasController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        BorderPane borderPane = new BorderPane();
-        GridPane gridPane = new GridPane();
         
-         for (int fila = 0; fila < filas; fila++) {
-            for (int columna = 0; columna < columnas; columna++) {
-                Button boton = new Button();
-                boton.setMinSize(40, 40); 
-                boton.setMaxSize(40, 40); 
-                boton.setOnAction(new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event){
-                        System.out.println(GridPane.getRowIndex(boton) + "  " + GridPane.getColumnIndex(boton));
-                    }
-                });
-                gridPane.add(boton, columna, fila);
-            }
-        }
         
-        gridPane.setAlignment(Pos.CENTER);
         
-        borderPane.setCenter(gridPane);
         
-        gridPane.setDisable(false);
         
-        generarMinas(); 
-        
-       /* for (int fila = 0; fila < filas; fila++) {
-            for (int columna = 0; columna < columnas; columna++) {
-                Button boton = new Button();
-                boton.setMinSize(40, 40); 
-                boton.setMaxSize(40, 40); 
-                final int f = fila;
-                final int c = columna;
-                boton.setOnAction(new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event){
-                        clicEnCelda(f, c);
-                    }
-                });
-                botones[fila][columna] = boton;
-                gridPane.add(boton, columna, fila);
-            }
-        }
-        
-        gridPane.setAlignment(Pos.CENTER);
-        borderPane.setCenter(gridPane);
-        
-              */  
+          
     }    
     
     private void generarMinas() {
@@ -231,7 +192,7 @@ public class BuscaminasController implements Initializable {
      private void clicIzquierdoEnCelda(int fila, int columna) {
     if (minas[fila][columna]) {
         // Mostrar mensaje de fin de juego
-        mostrarMensaje("Perdiste", "Has encontrado una mina. ¡Juego terminado!");
+        mostrarMensaje("Has perdido", "Has encontrado una mina.");
         // Mostrar todas las minas
         for (int f = 0; f < filas; f++) {
             for (int c = 0; c < columnas; c++) {
@@ -255,12 +216,20 @@ public class BuscaminasController implements Initializable {
      private void clicDerechoEnCelda(int fila, int columna) {
     // Marcar la celda con una bandera si aún no está marcada
     if (botones[fila][columna].getText().isEmpty()) {
-        botones[fila][columna].setText("B");
+        // Cargar la imagen de la bandera desde el archivo
+        Image banderaImage = new Image(getClass().getResourceAsStream("/resources/bandera.jpg"));
+        // Crear un ImageView y establecer la imagen de la bandera
+        ImageView imageView = new ImageView(banderaImage);
+        // Establecer el tamaño del ImageView para que coincida con el botón
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        // Establecer el ImageView como el contenido del botón
+        botones[fila][columna].setGraphic(imageView);
     }
 }
     
     @FXML
-    private void dfFacil(ActionEvent event) {
+    public void dfFacil() {
         columnas = 8;
         filas = 8;
         numMinas = 10;
@@ -269,7 +238,7 @@ public class BuscaminasController implements Initializable {
     }
 
     @FXML
-    private void dfIntermedio(ActionEvent event) {
+    public void dfIntermedio() {
         columnas = 16;
         filas = 16;
         numMinas = 40;
@@ -277,7 +246,7 @@ public class BuscaminasController implements Initializable {
     }
 
     @FXML
-    private void dfExperto(ActionEvent event) {
+    public void dfExperto() {
         columnas = 30;
         filas = 16;
         numMinas = 99;
@@ -285,7 +254,7 @@ public class BuscaminasController implements Initializable {
     }
 
     @FXML
-    private void dfPersonalizado(ActionEvent event) {
+    public void dfPersonalizado() {
         
     }
 
