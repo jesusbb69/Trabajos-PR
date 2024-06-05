@@ -1,0 +1,44 @@
+{
+    "team-name": "Los Angeles Lakers",
+    "colors": "Purpura y oro",
+    "stadium": "Staples Center",
+    "coach": "Phil Jackson",
+    "historical": true,
+    "web": null,
+    "jugadores": {
+        "bases": [
+            {
+                "name": "Magic Johnson",
+                "number": 32
+            },
+            {
+                "name": "Jerry West",
+                "number": 44
+            }
+        ],
+        "aleros": [
+            {
+                "name": "James Worthy",
+                "number": 42
+            },
+            {
+                "name": "Kobe Briant",
+                "number": 8
+            }
+        ],
+        "pivotes": [
+            {
+                "name": "Kareem Abdul-Jabbar",
+                "number": 33
+            },
+            {
+                "name": "Wilt Chamberlain",
+                "number": 13
+            },
+            {
+                "name": "Pau Gasol",
+                "number": 16
+            }
+        ]
+    }
+}

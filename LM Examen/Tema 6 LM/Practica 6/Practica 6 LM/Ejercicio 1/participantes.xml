@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="concurso.xsl"?>
+<concurso>
+    <participante codigo="CA01">
+        <nombre>Juan</nombre>
+        <apellidos>Pérez Gómez</apellidos>
+        <edad>32</edad>
+        <puntos>25</puntos>
+    </participante>
+    <participante codigo="CE02">
+        <nombre>María</nombre>
+        <apellidos>González Fernández</apellidos>
+        <edad>25</edad>
+        <puntos>20</puntos>
+    </participante>
+    <participante codigo="AB02">
+        <nombre>Manuel</nombre>
+        <apellidos>Ruiz Gómez</apellidos>
+        <edad>19</edad>
+        <puntos>23</puntos>
+    </participante>
+    <participante codigo="CE03">
+        <nombre>Manuel</nombre>
+        <apellidos>Sanabria Fernández</apellidos>
+        <edad>35</edad>
+        <puntos>15</puntos>
+    </participante>
+    <participante codigo="BE03">
+        <nombre>Antonio</nombre>
+        <apellidos>Rodríguez Pérez</apellidos>
+        <edad>59</edad>
+        <puntos>22</puntos>
+    </participante>
+    <participante codigo="DF05">
+        <nombre>Miguel</nombre>
+        <apellidos>García Ruiz</apellidos>
+        <edad>30</edad>
+        <puntos>18</puntos>
+    </participante>
+</concurso>

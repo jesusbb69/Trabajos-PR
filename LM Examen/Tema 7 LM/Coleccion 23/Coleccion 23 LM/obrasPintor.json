@@ -1,0 +1,19 @@
+{
+    "painter_name":"Diego Rodriguez de Silva y Velazquez",
+    "date":"06/06/1599",
+    "place":"Sevilla",
+    "obras":[
+        {
+            "name":"Las Meninas",
+            "year":1656
+        },
+        {
+            "name":"La rendicion de Breda",
+            "year":1635
+        },
+        {
+            "name":"Las hilanderas",
+            "year":1657
+        }
+    ]
+}

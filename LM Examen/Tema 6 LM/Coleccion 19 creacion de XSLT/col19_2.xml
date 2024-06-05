@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="col19_2.xsl" type="text/xsl"?>
+<vehiculos>
+    <vehiculo>
+        <marca>Seat</marca>
+        <web>https://www.seat.com</web>
+        <modelo>Ateca</modelo>
+        <precio financiado="Sí">29000</precio>
+    </vehiculo>
+    <vehiculo>
+        <marca>Ford</marca>
+        <web>https://www.ford.com</web>
+        <modelo>Fiesta</modelo>
+        <precio financiado="No">22000</precio>
+    </vehiculo>
+    <vehiculo>
+        <marca>Peugeot</marca>
+        <web>https://www.peugeot.com</web>
+        <modelo>3008</modelo>
+        <precio financiado="Sí">27000</precio>
+    </vehiculo>
+</vehiculos>

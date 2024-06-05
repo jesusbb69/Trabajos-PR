@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://www.aemet.es/feeds/</id>
+  <title>AEMET</title>
+  <updated>2024-01-03T1:00:00Z</updated>
+  <author>
+    <name>AEMET</name>
+  </author>
+  <link href="https://www.aemet.es/feeds/wheater"/>
+  <contributor>
+    <name>Mario Picazzo</name>
+  </contributor>
+  <generator>Servicios Meteorológicos AEMET</generator>
+  <rights>Copyright © AEMET</rights>
+  <subtitle>Actualizaciones meteorológicas en tiempo real por AEMET</subtitle>
+  <entry>
+    <id>https://www.aemet.es/feeds/wheater/madrid</id>
+    <title>Tiempo en Madrid</title>
+    <updated>2024-10-01T10:00:00Z</updated>
+    <author>
+      <name>Roberto Brasero</name>
+    </author>
+    <content>Actuales condiciones meteorológicas en Comunidad de Madrid</content>
+    <link href="https://www.aemet/feeds/wheater/madrid.html"/>
+    <summary>Actualización del tiempo en Comunidad de Madrid</summary>
+    <category term="Previsión regional"/>
+    <contributor>
+      <name>AEMET</name>
+    </contributor>
+    <published>2024-02-01T10:00:00Z</published>
+    <rights>Dominio público</rights>
+  </entry>
+  <entry>
+    <id>https://www.aemet.es/feeds/wheater/vega_baja</id>
+    <title>Tiempo en Vega Baja del Segura</title>
+    <updated>2024-10-05T10:00:00Z</updated>
+    <author>
+      <name>Mónica López</name>
+    </author>
+    <content>Actuales condiciones meteorológicas en Vega Baja</content>
+    <link href="https://www.aemet/feeds/wheater/vega_baja.html"/>
+    <summary>Actualización del tiempo en Vega Baja del Segura</summary>
+    <category term="Previsión comarcal"/>
+    <contributor>
+      <name>AEMET</name>
+    </contributor>
+    <published>2024-02-05T10:00:00Z</published>
+    <rights>Dominio público</rights>
+  </entry>
+</feed>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title> Noticias Internacionales </title>
+        <link> https://www.cnn.com/rss </link>
+        <description> Canal sobre noticias del mundo </description>
+        <language> en </language>
+        <copyright> Autor Todos los derechos reservados </copyright>
+        <category> Noticias </category>
+        <generator> MyNewsRSS </generator>
+        <item>
+            <title> Evolucion de la pandemia </title>
+            <link> https://www.cnn.com/rss/pandemia.html </link>
+            <description> Datos estadísticos sobre la evolución de la pandemia en los últimos meses </description>
+            <pubDate> Wed, 04 May 2020 15:30:00 GMT </pubDate>
+            <comments> http://ejemplo.com/articulo1#comments </comments>
+            <author> periodista1@gmail.com </author>
+        </item>
+        <item> 
+            <title> Guerra a las puertas de Europa </title>
+            <link> https://www.cnn.com/rss/guerra.html</link>
+            <description> Aumento de la tensión entre Rusia y la OTAN </description>
+            <pubDate> Fri, 06 May 2022 12:00:00 GMT </pubDate>
+            <comments> http://ejemplo.com/articulo2#comments </comments>
+            <author> periodista2@gmail.com </author>
+        </item>
+    </channel>
+</rss>

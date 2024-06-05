@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title> Lenguajes de Programacion </title>
+        <link> https://www.paraninfo.es/rss </link>
+        <description>  Canal sobre programación </description>
+        <language> es </language>
+        <copyright> Autor Todos los derechos reservados </copyright>
+        <category> Tecnologia </category>
+        <generator> MiGeneradorRSS </generator>
+        <item>
+            <title> Python </title>
+            <link> https://www.paraninfo.es/rss/python.html </link>
+            <description> El lenguaje Python </description>
+            <pubDate> Wed, 04 May 2024 15:30:00 GMT </pubDate>
+            <comments> http://ejemplo.com/articulo1#comments </comments>
+            <author> autor1@gmail.com </author>
+        </item>
+        <item> 
+            <title> Java </title>
+            <link> https://www.paraninfo.es/rss/javascript.html </link>
+            <description> El lenguaje JavaScript </description>
+            <pubDate> Fri, 06 May 2024 12:00:00 GMT </pubDate>
+            <comments> http://ejemplo.com/articulo2#comments </comments>
+            <author> autor2@gmail.com </author>
+        </item>
+    </channel>
+</rss>
