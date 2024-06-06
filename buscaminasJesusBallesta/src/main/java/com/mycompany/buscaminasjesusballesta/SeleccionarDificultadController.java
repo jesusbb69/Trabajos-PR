@@ -58,7 +58,8 @@ public class SeleccionarDificultadController implements Initializable {
     }
 
     @FXML
-    private void dfPersonalizado(ActionEvent event) {
+    private void dfPersonalizado(ActionEvent event) throws IOException {
+        cargarBuscaminas(event);
     }
     
     private void cargarBuscaminas(ActionEvent event) throws IOException{

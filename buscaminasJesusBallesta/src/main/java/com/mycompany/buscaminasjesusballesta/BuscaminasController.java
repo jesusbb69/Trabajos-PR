@@ -6,6 +6,7 @@ package com.mycompany.buscaminasjesusballesta;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
@@ -29,6 +30,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -118,7 +120,7 @@ public class BuscaminasController implements Initializable {
     private void clicEnCelda(int fila, int columna) {
         if (minas[fila][columna]) {
             // Mostrar mensaje de fin de juego
-            mostrarMensaje("Perdiste", "Has encontrado una mina. ¡Juego terminado!");
+            mostrarMensaje("Perdiste", "Has encontrado una mina.");
             // Mostrar todas las minas
             for (int f = 0; f < filas; f++) {
                 for (int c = 0; c < columnas; c++) {
@@ -186,31 +188,39 @@ public class BuscaminasController implements Initializable {
         }
         gridPane.setAlignment(Pos.CENTER);
         borderPane.setCenter(gridPane);
-        gridPane.setDisable(false);
+        gridPane.setDisable(true);
     }
      
-     private void clicIzquierdoEnCelda(int fila, int columna) {
-    if (minas[fila][columna]) {
-        // Mostrar mensaje de fin de juego
-        mostrarMensaje("Has perdido", "Has encontrado una mina.");
-        // Mostrar todas las minas
-        for (int f = 0; f < filas; f++) {
-            for (int c = 0; c < columnas; c++) {
-                if (minas[f][c]) {
-                    botones[f][c].setText("M");
+     private void deshabilitarBotonesAdyacentesConCero(int fila, int columna) {
+       /* for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
+            for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
+                if (botones[i][j].getText().equals("0") && botones[i][j].isDisabled()) {
+                    botones[i][j].setDisable(true);
+                    deshabilitarBotonesAdyacentesConCero(i, j);
+                }
+            }
+        }*/
+       
+       for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
+            for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
+                if (botones[i][j].getText().equals("0")) {
+                    botones[i][j].setDisable(true);
+                    deshabilitarBotonesAdyacentesConCero(i, j); 
                 }
             }
         }
-    } else {
-        // Mostrar número de minas adyacentes
-        int minasAdyacentes = contarMinasAdyacentes(fila, columna);
-        botones[fila][columna].setText(Integer.toString(minasAdyacentes));
-        casillasSinRevelar--;
-        if (casillasSinRevelar == 0) {
-            // Todas las casillas sin minas han sido reveladas, el jugador ha ganado
-            mostrarMensaje("¡Ganaste!", "Has encontrado todas las casillas sin minas. ¡Felicidades!");
-        }
     }
+     
+     
+     
+     private void clicIzquierdoEnCelda(int fila, int columna) {
+    String contenido = botones[fila][columna].getText();
+        if (contenido.equals("0")) {
+            // Deshabilitar botones adyacentes con 0
+            deshabilitarBotonesAdyacentesConCero(fila, columna);
+        } else if (!contenido.equals("9")) {
+            botones[fila][columna].setDisable(true);
+        }
 }
      
      private void clicDerechoEnCelda(int fila, int columna) {
@@ -252,11 +262,47 @@ public class BuscaminasController implements Initializable {
         numMinas = 99;
         crearTablero();
     }
+    
+    private int columnasPersonalizado;
+    private int filasPersonalizado;
+    private int minasPersonalizado;
 
     @FXML
     public void dfPersonalizado() {
+        TextInputDialog dialog = new TextInputDialog("8x8-10"); // Valor predeterminado
+        dialog.setTitle("Dificultad Personalizada");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Introduce la configuración (filas x columnas - minas):");
+
+        Optional<String> resultado = dialog.showAndWait();
+        if (resultado.isPresent()) {
+            String[] configuracion = resultado.get().split("-");
+            if (configuracion.length == 2) {
+                String[] dimension = configuracion[0].split("x");
+                if (dimension.length == 2) {
+                    try {
+                        columnasPersonalizado = Integer.parseInt(dimension[1]);
+                        filasPersonalizado = Integer.parseInt(dimension[0]);
+                        minasPersonalizado = Integer.parseInt(configuracion[1]);                        
+                        crearTableroPersonalizado();
+                    } catch (NumberFormatException e) {
+                        mostrarMensaje("Error", "Formato de configuración incorrecto.");
+                    }
+                }
+            }
+        }
+    
+    }
+    
+    private void crearTableroPersonalizado() {
+        columnas = columnasPersonalizado;
+        filas = filasPersonalizado;
+        numMinas = minasPersonalizado;
+        crearTablero();
+        
         
     }
+    
 
     @FXML
     private void botonPausa(ActionEvent event) {
@@ -335,6 +381,7 @@ public class BuscaminasController implements Initializable {
         timeline.setCycleCount(Animation.INDEFINITE);
         // iniciar temporizador
         timeline.play();
+        
     }
     
     private void actualizarEtiquetas() {
