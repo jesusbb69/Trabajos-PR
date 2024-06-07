@@ -118,11 +118,12 @@ public class BuscaminasController implements Initializable {
             }
         }
     }
-    private int minasGeneradas = 0;
+
+    int minasGeneradas = 0;
 
     private void generarMinas() {
         Random rand = new Random();
-
+        minasGeneradas = 0;
         while (minasGeneradas < numMinas) {
             int fila = rand.nextInt(filas);
             int columna = rand.nextInt(columnas);
@@ -133,35 +134,27 @@ public class BuscaminasController implements Initializable {
         }
     }
 
-   
-
-    private void mensajeVictoria() throws  IOException{
+    private void mensajeVictoria() throws IOException {
         timeline.stop();
         gridPane.setDisable(true);
         FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/finPartida.fxml"));
         Parent root = miCargador.load();
         FinPartidaController fin = miCargador.<FinPartidaController>getController();
-        
-        Stage stageActual = (Stage) gridPane.getScene().getWindow();
-        stageActual.close();
+
         Scene scene = new Scene(root, 540, 380);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Fin de Partida");
-        //stage.show();
         stage.initModality(Modality.APPLICATION_MODAL);
-        //tablaPersonas.btVolver1.setVisible(false);
-        //tablaPersonas.btSiguiente1.setVisible(false);
+        stage.setResizable(false);
+        Stage stageActual = (Stage) gridPane.getScene().getWindow();
+
         stage.showAndWait();
+        stageActual.hide();
 
-    }
+        //stageActual.show();
+        cerrarVentana();
 
-    private void mostrarMensajeVictoria() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("¡Victoria!");
-        alert.setHeaderText(null);
-        alert.setContentText("¡Has encontrado todas las minas correctamente! ¡Felicidades!");
-        alert.showAndWait();
     }
 
     private int contarMinasAdyacentes(int fila, int columna) {
@@ -224,18 +217,40 @@ public class BuscaminasController implements Initializable {
         // Eliminar botones del GridPane
         GridPane gridPane = (GridPane) borderPane.getCenter();
         gridPane.getChildren().clear();
+        for (int fila = 0; fila < filas; fila++) {
+            for (int columna = 0; columna < columnas; columna++) {
+                minas[fila][columna] = false;
+            }
+        }
 
     }
 
     private void deshabilitarBotonesAdyacentesConCero(int fila, int columna) {
-        for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
+        /*for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
             for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
                 if (botones[i][j].getText().equals("0") && botones[i][j].isDisabled()) {
                     botones[i][j].setDisable(true);
                     deshabilitarBotonesAdyacentesConCero(i, j);
                 }
             }
+        }*/
+
+        for (int i = (fila - 1); i <= (fila + 1); i++) {
+            for (int j = (columna - 1); j <= (columna + 1); j++) {
+
+                if (i >= 0 && i < filas && j >= 0 && j < columnas) {
+                    if (!botones[i][j].isDisabled()) {
+                        int minasAdyacentes = contarMinasAdyacentes(i, j);
+                        botones[i][j].setText(Integer.toString(minasAdyacentes));
+                        botones[i][j].setDisable(true);
+                        if (minasAdyacentes == 0) {
+                            deshabilitarBotonesAdyacentesConCero(i, j);
+                        }
+                    }
+                }
+            }
         }
+
 
         /*for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
             for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
@@ -248,29 +263,41 @@ public class BuscaminasController implements Initializable {
     }
 
     private void clicIzquierdoEnCelda(int fila, int columna) {
-        String contenido = botones[fila][columna].getText();
-        if (contenido.equals("0")) {
-            // Deshabilitar botones adyacentes con 0
+        /*String contenido = botones[fila][columna].getText();
+        if (contenido.equals("0")) {           
             deshabilitarBotonesAdyacentesConCero(fila, columna);
+            clicIzquierdoEnCelda(fila - 1, columna - 1);
         } else if (!contenido.equals("9")) {
             botones[fila][columna].setDisable(true);
+            
+        }*/
+
+        if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas || botones[fila][columna].isDisabled()) {
+            return;
         }
 
-       
-        if (minas[fila][columna]) {          
+        int minasAdyacentes = contarMinasAdyacentes(fila, columna);
+
+        if (minas[fila][columna]) {
             mostrarMensaje("GAME OVER", "¡Has encontrado una mina! ¡Juego terminado!");
             timeline.stop();
             mostrarMinas();
+            gridPane.setDisable(true);
         } else {
-            int minasAdyacentes = contarMinasAdyacentes(fila, columna);
+
             botones[fila][columna].setText(Integer.toString(minasAdyacentes));
+            botones[fila][columna].setDisable(true);
+        }
+
+        if (minasAdyacentes == 0) {
+            deshabilitarBotonesAdyacentesConCero(fila, columna);
         }
 
     }
     private int banderasAcertadas = 0;
 
-    private void clicDerechoEnCelda(int fila, int columna) {       
-        
+    private void clicDerechoEnCelda(int fila, int columna) {
+
         System.out.println(fila + " " + columna);
         if (botones[fila][columna].getText().isEmpty()) {
             // Cargar la imagen de la bandera desde el archivo
@@ -280,40 +307,36 @@ public class BuscaminasController implements Initializable {
             // Establecer el tamaño del ImageView para que coincida con el botón
             imageView.setFitWidth(40);
             imageView.setFitHeight(40);
-            
-            
+
             if (botones[fila][columna].getGraphic() != null) {
-        // Si ya hay una bandera, la quitamos
-        botones[fila][columna].setGraphic(null);
-        banderasColocadas--;               
-    } else {
-        // Colocar una bandera
-        botones[fila][columna].setGraphic(imageView);
-        banderasColocadas++;       
-            
+                // Si ya hay una bandera, la quitamos
+                botones[fila][columna].setGraphic(null);
+                banderasColocadas--;
+            } else {
+                // Colocar una bandera
+                botones[fila][columna].setGraphic(imageView);
+                banderasColocadas++;
+
+            }
         }
-    }
-              actualizarEtiquetaBanderasColocadas();
-              
-           
-           if (minas[fila][columna] == true){
-               banderasAcertadas++;
-           }
-           if (banderasAcertadas == numMinas){
+        actualizarEtiquetaBanderasColocadas();
+
+        if (minas[fila][columna] == true) {
+            banderasAcertadas++;
+        }
+        if (banderasAcertadas == numMinas) {
             try {
                 mensajeVictoria();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-               banderasAcertadas = 0;
-           }
-           
-            
+            banderasAcertadas = 0;
         }
-    
+
+    }
 
     @FXML
-    public void dfFacil() {        
+    public void dfFacil() {
         crearTablero();
         resetearJuego();
         limpiarTablero();
@@ -326,7 +349,7 @@ public class BuscaminasController implements Initializable {
     }
 
     @FXML
-    public void dfIntermedio() {       
+    public void dfIntermedio() {
         crearTablero();
         resetearJuego();
         limpiarTablero();
@@ -338,7 +361,7 @@ public class BuscaminasController implements Initializable {
     }
 
     @FXML
-    public void dfExperto() {        
+    public void dfExperto() {
         crearTablero();
         resetearJuego();
         limpiarTablero();
@@ -348,21 +371,21 @@ public class BuscaminasController implements Initializable {
         crearTablero();
         actualizarEtiquetaBanderasColocadas();
     }
-    
+
     private void resetearJuego() {
-    
-    banderasColocadas = 0;
-    actualizarEtiquetaBanderasColocadas();
-    // Limpia el tablero si es necesario
-    limpiarTablero();
-    detenerTemporizador();
-}
-    
-    private void detenerTemporizador() {
-    if (timeline != null) {
-        timeline.stop();
+
+        banderasColocadas = 0;
+        actualizarEtiquetaBanderasColocadas();
+        // Limpia el tablero si es necesario
+        limpiarTablero();
+        detenerTemporizador();
     }
-}
+
+    private void detenerTemporizador() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+    }
 
     private int columnasPersonalizado;
     private int filasPersonalizado;
@@ -370,7 +393,7 @@ public class BuscaminasController implements Initializable {
 
     @FXML
     public void dfPersonalizado() {
-        
+
         crearTablero();
         resetearJuego();
         limpiarTablero();
@@ -407,20 +430,19 @@ public class BuscaminasController implements Initializable {
 
     }
 
+    private boolean juegoPausado = false;
+
     @FXML
     private void botonPausa(ActionEvent event) {
-        if (timeline != null) {
-            timeline.pause();
-            gridPane.setDisable(true);
-
+        if (juegoPausado) {
+            timeline.play();
+            borderPane.getCenter().setDisable(false);
+            juegoPausado = false;
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Atencion");
-            alert.setHeaderText("AVISO");
-            alert.setContentText("Para poder usar el boton de pausa se tiene que iniciar el juego");
-            alert.showAndWait();
+            timeline.pause();
+            borderPane.getCenter().setDisable(true);
+            juegoPausado = true;
         }
-
     }
 
     @FXML
@@ -449,7 +471,7 @@ public class BuscaminasController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/primary.fxml"));
         Parent root = miCargador.load();
         PrimaryController inicio = miCargador.<PrimaryController>getController();
-        
+
         Stage stageActual = (Stage) gridPane.getScene().getWindow();
         stageActual.close();
         Scene scene = new Scene(root, 640, 400);
@@ -508,10 +530,13 @@ public class BuscaminasController implements Initializable {
 
     }
 
-   
-    
     private void actualizarEtiquetaBanderasColocadas() {
-    numeroMinas.setText("minas: " + banderasColocadas + " / " + numMinas);
-}
+        numeroMinas.setText("minas: " + banderasColocadas + " / " + numMinas);
+    }
+
+    private void cerrarVentana() {
+        Stage stage = (Stage) gridPane.getScene().getWindow();
+        stage.close();
+    }
 
 }

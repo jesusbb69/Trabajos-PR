@@ -81,8 +81,7 @@ public class SeleccionarDificultadController implements Initializable {
         }
         
         
-        Stage stageActual = (Stage) facil.getScene().getWindow();
-        stageActual.close();
+
         Scene scene = new Scene(root, 1200, 900);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -90,9 +89,11 @@ public class SeleccionarDificultadController implements Initializable {
         //stage.show();
         stage.initModality(Modality.APPLICATION_MODAL);
         //tablaPersonas.btVolver1.setVisible(false);
-        //tablaPersonas.btSiguiente1.setVisible(false);
+        //tablaPersonas.btSiguiente1.setVisible(false);                
         stage.showAndWait();
-        
+        Stage stageActual = (Stage) facil.getScene().getWindow();
+        stageActual.hide();
+        stageActual.show();
         
             
         
