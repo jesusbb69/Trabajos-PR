@@ -48,7 +48,8 @@ public class PrimaryController implements Initializable {
         FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/seleccionarDificultad.fxml"));
         Parent root = miCargador.load();
         SeleccionarDificultadController buscaminas = miCargador.<SeleccionarDificultadController>getController();
-        
+        Stage stageActual = (Stage) btJugar.getScene().getWindow();
+        stageActual.close();
         Scene scene = new Scene(root, 620, 400);
         Stage stage = new Stage();
         stage.setResizable(false);

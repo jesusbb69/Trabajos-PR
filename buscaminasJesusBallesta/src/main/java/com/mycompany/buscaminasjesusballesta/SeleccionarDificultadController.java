@@ -71,6 +71,7 @@ public class SeleccionarDificultadController implements Initializable {
         
         if(clickButton.getId().equals("facil")){
             buscaminas.dfFacil();
+            
         }else if(clickButton.getId().equals("intermedio")){
             buscaminas.dfIntermedio();
         }else if(clickButton.getId().equals("experto")){
@@ -80,7 +81,8 @@ public class SeleccionarDificultadController implements Initializable {
         }
         
         
-        
+        Stage stageActual = (Stage) facil.getScene().getWindow();
+        stageActual.close();
         Scene scene = new Scene(root, 1200, 900);
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -36,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -87,7 +88,8 @@ public class BuscaminasController implements Initializable {
 
     private Timeline timeline;
     private int tiempoTranscurrido;
-    private int minasEncontradas;
+    private int minasEncontradas = 0;
+    private int banderasColocadas = 0;
 
     /**
      * Initializes the controller class.
@@ -116,10 +118,11 @@ public class BuscaminasController implements Initializable {
             }
         }
     }
+    private int minasGeneradas = 0;
 
     private void generarMinas() {
         Random rand = new Random();
-        int minasGeneradas = 0;
+
         while (minasGeneradas < numMinas) {
             int fila = rand.nextInt(filas);
             int columna = rand.nextInt(columnas);
@@ -130,46 +133,37 @@ public class BuscaminasController implements Initializable {
         }
     }
 
-    private boolean haGanado() {
-        int banderasCorrectamenteColocadas = 0;
+   
 
-        // Verifica si todas las minas están marcadas con banderas
-        for (int fila = 0; fila < filas; fila++) {
-            for (int columna = 0; columna < columnas; columna++) {
-                if (minas[fila][columna] && botones[fila][columna].getText().equals("B")) {
-                    banderasCorrectamenteColocadas++;
-                }
-            }
-        }
+    private void mensajeVictoria() throws  IOException{
+        timeline.stop();
+        gridPane.setDisable(true);
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/finPartida.fxml"));
+        Parent root = miCargador.load();
+        FinPartidaController fin = miCargador.<FinPartidaController>getController();
+        
+        Stage stageActual = (Stage) gridPane.getScene().getWindow();
+        stageActual.close();
+        Scene scene = new Scene(root, 540, 380);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Fin de Partida");
+        //stage.show();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //tablaPersonas.btVolver1.setVisible(false);
+        //tablaPersonas.btSiguiente1.setVisible(false);
+        stage.showAndWait();
 
-        // Si el número de banderas colocadas correctamente es igual al número total de minas, el jugador ha ganado
-        return banderasCorrectamenteColocadas == numMinas;
     }
 
-    private void verificarVictoria() {
-        if (haGanado()) {
-            mostrarMensaje("¡Victoria!", "¡Has ganado el juego!");
-        }
+    private void mostrarMensajeVictoria() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("¡Victoria!");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Has encontrado todas las minas correctamente! ¡Felicidades!");
+        alert.showAndWait();
     }
 
-    /*private void clicEnCelda(int fila, int columna) {
-        if (minas[fila][columna]) {
-            // Mostrar mensaje de fin de juego
-            mostrarMensaje("Perdiste", "Has encontrado una mina.");
-            // Mostrar todas las minas
-            for (int f = 0; f < filas; f++) {
-                for (int c = 0; c < columnas; c++) {
-                    if (minas[f][c]) {
-                        botones[f][c].setText("M");
-                    }
-                }
-            }
-        } else {
-            // Calcular el número de minas adyacentes
-            int minasAdyacentes = contarMinasAdyacentes(fila, columna);
-            botones[fila][columna].setText(Integer.toString(minasAdyacentes));
-        }
-    }*/
     private int contarMinasAdyacentes(int fila, int columna) {
         int count = 0;
         for (int i = -1; i <= 1; i++) {
@@ -194,8 +188,8 @@ public class BuscaminasController implements Initializable {
         alert.showAndWait();
     }
 
-    private void crearTablero() {
-
+    public void crearTablero() {
+        minasGeneradas = 0;
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 Button boton = new Button();
@@ -225,33 +219,32 @@ public class BuscaminasController implements Initializable {
 
         generarMinas();
     }
-    
+
     private void limpiarTablero() {
-    // Eliminar botones del GridPane
-    GridPane gridPane = (GridPane) borderPane.getCenter();
-    gridPane.getChildren().clear();
-    
-    
-}
+        // Eliminar botones del GridPane
+        GridPane gridPane = (GridPane) borderPane.getCenter();
+        gridPane.getChildren().clear();
+
+    }
 
     private void deshabilitarBotonesAdyacentesConCero(int fila, int columna) {
-        /* for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
+        for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
             for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
                 if (botones[i][j].getText().equals("0") && botones[i][j].isDisabled()) {
                     botones[i][j].setDisable(true);
                     deshabilitarBotonesAdyacentesConCero(i, j);
                 }
             }
-        }*/
+        }
 
-        for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
+        /*for (int i = Math.max(0, fila - 1); i <= Math.min(fila + 1, filas - 1); i++) {
             for (int j = Math.max(0, columna - 1); j <= Math.min(columna + 1, columnas - 1); j++) {
                 if (botones[i][j].getText().equals("0")) {
                     botones[i][j].setDisable(true);
                     deshabilitarBotonesAdyacentesConCero(i, j);
                 }
             }
-        }
+        }*/
     }
 
     private void clicIzquierdoEnCelda(int fila, int columna) {
@@ -263,38 +256,21 @@ public class BuscaminasController implements Initializable {
             botones[fila][columna].setDisable(true);
         }
 
-        /*if (minas[fila][columna]) {
-            // Mostrar mensaje de fin de juego
-            mostrarMensaje("Perdiste", "Has encontrado una mina.");
-            // Mostrar todas las minas
-            for (int f = 0; f < filas; f++) {
-                for (int c = 0; c < columnas; c++) {
-                    if (minas[f][c]) {
-                        botones[f][c].setText("M");
-                    }
-                }
-            }
-        } else {
-            // Calcular el número de minas adyacentes
-            int minasAdyacentes = contarMinasAdyacentes(fila, columna);
-            botones[fila][columna].setText(Integer.toString(minasAdyacentes));
-        }*/
-        if (minas[fila][columna]) {
-            // Mostrar mensaje de fin de juego
+       
+        if (minas[fila][columna]) {          
             mostrarMensaje("GAME OVER", "¡Has encontrado una mina! ¡Juego terminado!");
             timeline.stop();
-            // Mostrar todas las minas
             mostrarMinas();
         } else {
-            // Calcular el número de minas adyacentes
             int minasAdyacentes = contarMinasAdyacentes(fila, columna);
             botones[fila][columna].setText(Integer.toString(minasAdyacentes));
         }
 
     }
+    private int banderasAcertadas = 0;
 
-    private void clicDerechoEnCelda(int fila, int columna) {
-        // Marcar la celda con una bandera si aún no está marcada
+    private void clicDerechoEnCelda(int fila, int columna) {       
+        
         System.out.println(fila + " " + columna);
         if (botones[fila][columna].getText().isEmpty()) {
             // Cargar la imagen de la bandera desde el archivo
@@ -304,39 +280,89 @@ public class BuscaminasController implements Initializable {
             // Establecer el tamaño del ImageView para que coincida con el botón
             imageView.setFitWidth(40);
             imageView.setFitHeight(40);
-            // Establecer el ImageView como el contenido del botón
-            botones[fila][columna].setGraphic(imageView);
-            //mostrarMinas();
+            
+            
+            if (botones[fila][columna].getGraphic() != null) {
+        // Si ya hay una bandera, la quitamos
+        botones[fila][columna].setGraphic(null);
+        banderasColocadas--;               
+    } else {
+        // Colocar una bandera
+        botones[fila][columna].setGraphic(imageView);
+        banderasColocadas++;       
+            
         }
     }
+              actualizarEtiquetaBanderasColocadas();
+              
+           
+           if (minas[fila][columna] == true){
+               banderasAcertadas++;
+           }
+           if (banderasAcertadas == numMinas){
+            try {
+                mensajeVictoria();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+               banderasAcertadas = 0;
+           }
+           
+            
+        }
+    
 
     @FXML
-    public void dfFacil() {
+    public void dfFacil() {        
+        crearTablero();
+        resetearJuego();
         limpiarTablero();
         columnas = 8;
         filas = 8;
         numMinas = 10;
         crearTablero();
+        actualizarEtiquetaBanderasColocadas();
 
     }
 
     @FXML
-    public void dfIntermedio() {
-        
+    public void dfIntermedio() {       
+        crearTablero();
+        resetearJuego();
+        limpiarTablero();
         columnas = 16;
         filas = 16;
         numMinas = 40;
         crearTablero();
+        actualizarEtiquetaBanderasColocadas();
     }
 
     @FXML
-    public void dfExperto() {
-       
+    public void dfExperto() {        
+        crearTablero();
+        resetearJuego();
+        limpiarTablero();
         columnas = 30;
         filas = 16;
         numMinas = 99;
         crearTablero();
+        actualizarEtiquetaBanderasColocadas();
     }
+    
+    private void resetearJuego() {
+    
+    banderasColocadas = 0;
+    actualizarEtiquetaBanderasColocadas();
+    // Limpia el tablero si es necesario
+    limpiarTablero();
+    detenerTemporizador();
+}
+    
+    private void detenerTemporizador() {
+    if (timeline != null) {
+        timeline.stop();
+    }
+}
 
     private int columnasPersonalizado;
     private int filasPersonalizado;
@@ -345,11 +371,14 @@ public class BuscaminasController implements Initializable {
     @FXML
     public void dfPersonalizado() {
         
+        crearTablero();
+        resetearJuego();
+        limpiarTablero();
         TextInputDialog dialog = new TextInputDialog("8x8-10"); // Valor predeterminado
         dialog.setTitle("Dificultad Personalizada");
         dialog.setHeaderText(null);
         dialog.setContentText("Introduce la configuración (filas x columnas - minas):");
-        
+
         Optional<String> resultado = dialog.showAndWait();
         if (resultado.isPresent()) {
             String[] configuracion = resultado.get().split("-");
@@ -367,7 +396,7 @@ public class BuscaminasController implements Initializable {
                 }
             }
         }
-
+        actualizarEtiquetaBanderasColocadas();
     }
 
     private void crearTableroPersonalizado() {
@@ -417,8 +446,19 @@ public class BuscaminasController implements Initializable {
 
     @FXML
     private void menuSalir(ActionEvent event) throws IOException {
-        Stage stage = (Stage) salir.getScene().getWindow();
-        stage.close();
+        FXMLLoader miCargador = new FXMLLoader(getClass().getClassLoader().getResource("com/mycompany/buscaminasjesusballesta/primary.fxml"));
+        Parent root = miCargador.load();
+        PrimaryController inicio = miCargador.<PrimaryController>getController();
+        
+        Stage stageActual = (Stage) gridPane.getScene().getWindow();
+        stageActual.close();
+        Scene scene = new Scene(root, 640, 400);
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("Buscaminas JBB");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
 
     }
 
@@ -464,7 +504,14 @@ public class BuscaminasController implements Initializable {
 
     private void actualizarEtiquetas() {
         tiempo.setText("Tiempo: " + tiempoTranscurrido + " s");
-        numeroMinas.setText("Minas: " + minasEncontradas);
+        //numeroMinas.setText("Minas: " + minasEncontradas);
+
     }
+
+   
+    
+    private void actualizarEtiquetaBanderasColocadas() {
+    numeroMinas.setText("minas: " + banderasColocadas + " / " + numMinas);
+}
 
 }

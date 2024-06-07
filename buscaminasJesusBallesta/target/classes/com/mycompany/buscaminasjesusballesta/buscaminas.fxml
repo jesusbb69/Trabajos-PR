@@ -38,7 +38,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../../Downloads/boton-de-inicio.png" />
+                              <Image url="@../../../boton-de-reproduccion.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -46,7 +46,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../pausar.png" />
+                              <Image url="@../../../pausa.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -54,7 +54,7 @@
                      <graphic>
                         <ImageView fitHeight="39.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../top.png" />
+                              <Image url="@../../../podio.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -62,7 +62,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../ayuda.png" />
+                              <Image url="@../../../bloquear.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
