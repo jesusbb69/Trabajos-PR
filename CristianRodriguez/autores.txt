@@ -1,0 +1,2 @@
+48784136D,LauraFlauta,Martinez,28/07/1970,./src/main/resources/cervantes.jpg
+99999999R,Laura,Martinez,29/12/2000,./src/main/resources/laura.jpg
